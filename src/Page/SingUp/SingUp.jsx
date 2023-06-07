@@ -8,37 +8,78 @@ import { ImSpinner9 } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../hooks/useAuth";
 
+import { saveUser } from "../../api/auth";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+
 const SignUp = () => {
+  const [success, setSuccess] = useState("");
+
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm();
-  const { createUser, updateUserProfile, loading } = useAuth();
+  const {
+    createUser,
+    setLoading,
+    signInWithGoogle,
+    updateUserProfile,
+    loading,
+    user,
+  } = useAuth();
   // const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data);
-    createUser(data.email, data.password).then((result) => {
+    createUser(data?.email, data?.password).then((result) => {
       const loggedUser = result.user;
       console.log(loggedUser);
-      updateUserProfile(data.name, data.photoURL)
+      updateUserProfile(data?.name, data?.photoURL)
         .then(() => {
-          console.log("user profile info updated");
-          reset();
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "User created successfully.",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          navigate("/");
+          const saveUser = { name: data?.name, email: data?.email };
+          fetch(`${import.meta.env.VITE_API_URL}/users/${user?.email}`, {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(saveUser),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.insertedId) {
+                reset();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "User Created SuccessFully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+              navigate("/");
+            });
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+        });
     });
+  };
+  const handleGoogleLogIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result.user);
+        setSuccess(toast.success("Google SinIn Success", {}));
+        // todo save add to db user
+        saveUser(result.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+        setLoading(false);
+      });
   };
 
   return (
@@ -54,7 +95,7 @@ const SignUp = () => {
           <div className="flex flex-col max-w-md p-6 rounded-lg sm:p-10 bg-slate-100  text-gray-900">
             <div className="mb-8 text-center">
               <h1 className="my-3 text-4xl font-bold">Sign Up</h1>
-              <p className="text-sm text-gray-400">Welcome to Home Land</p>
+              <p className="text-sm text-gray-400">Welcome to Healthy Fit</p>
             </div>
             <form
               onSubmit={handleSubmit(onSubmit)}
@@ -90,6 +131,7 @@ const SignUp = () => {
                       style={{ borderRadius: "0px 200px 0px 200px" }}
                       {...register("photoURL", { required: true })}
                       placeholder="Photo URL"
+                      name="photoURL"
                       className="w-full px-3 text-center py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                       data-temp-mail-org="0"
                     />
@@ -160,12 +202,58 @@ const SignUp = () => {
                     </p>
                   )}
                 </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label htmlFor="password" className="text-sm mb-2">
+                      Confirm Password
+                    </label>
+                  </div>
+                  <input
+                    style={{ borderRadius: "0px 200px 0px 200px" }}
+                    type="password"
+                    name="confirmPassword"
+                    id="password"
+                    {...register("confirmPassword", {
+                      required: true,
+                      minLength: 6,
+                      maxLength: 20,
+                      pattern:
+                        /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
+                      validate: (value) =>
+                        value === watch("password") || "Passwords do not match",
+                    })}
+                    placeholder="*******"
+                    className="w-full px-3 text-center py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                  />
+                  {errors.confirmPassword?.type === "required" && (
+                    <p className="text-red-600">Confirm Password is required</p>
+                  )}
+                  {errors.confirmPassword?.type === "minLength" && (
+                    <p className="text-red-600">
+                      Confirm Password must be 6 characters
+                    </p>
+                  )}
+                  {errors.confirmPassword?.type === "maxLength" && (
+                    <p className="text-red-600">
+                      Confirm Password must be less than 20 characters
+                    </p>
+                  )}
+                  {errors.confirmPassword?.type === "pattern" && (
+                    <p className="text-red-600">
+                      Confirm Password must have one Uppercase one lower case,
+                      one number and one special character.
+                    </p>
+                  )}
+                  {errors.confirmPassword && (
+                    <p>{errors.confirmPassword.message}</p>
+                  )}
+                </div>
               </div>
 
               <div>
                 <button
                   type="submit"
-                  className="bg-rose-500 w-full rounded-md py-3 text-white"
+                  className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 w-full rounded-md py-3 text-white"
                 >
                   {loading ? (
                     <ImSpinner9 className="m-auto animate-spin" siz={24} />
@@ -183,7 +271,7 @@ const SignUp = () => {
               <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
             </div>
             <div
-              // onClick={handleGoogleLogIn}
+              onClick={handleGoogleLogIn}
               className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer"
             >
               <FcGoogle size={32} />
@@ -198,7 +286,6 @@ const SignUp = () => {
               >
                 Login
               </Link>
-              .
             </p>
           </div>
         </div>

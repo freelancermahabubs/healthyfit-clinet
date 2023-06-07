@@ -6,6 +6,7 @@ const Home = () => {
       <Helmet>
         <title>HealthyFit | Home</title>
       </Helmet>
+      <h2>hello home</h2>
     </div>
   );
 };
