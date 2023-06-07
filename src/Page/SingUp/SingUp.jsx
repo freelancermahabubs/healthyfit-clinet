@@ -92,7 +92,7 @@ const SignUp = () => {
           <Player autoplay loop src={AnimationLottie}></Player>
         </div>
         <div className="flex justify-center w-full items-center min-h-screen">
-          <div className="flex flex-col max-w-md p-6 rounded-lg sm:p-10 bg-slate-100  text-gray-900">
+          <div className="flex flex-col max-w-md p-6 rounded-lg sm:p-10 bg-white shadow-lg  text-gray-900">
             <div className="mb-8 text-center">
               <h1 className="my-3 text-4xl font-bold">Sign Up</h1>
               <p className="text-sm text-gray-400">Welcome to Healthy Fit</p>

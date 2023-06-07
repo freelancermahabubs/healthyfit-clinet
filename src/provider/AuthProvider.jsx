@@ -18,6 +18,7 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const googleAuthProvider = new GoogleAuthProvider();
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null);
 
   const [loading, setLoading] = useState(true);
 
@@ -72,6 +73,8 @@ const AuthProvider = ({ children }) => {
     signInWithGoogle,
     resetPassword,
     updateUserProfile,
+    role,
+    setRole,
     logOut,
   };
 

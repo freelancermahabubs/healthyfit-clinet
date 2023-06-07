@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.15",
     "@lottiefiles/react-lottie-player": "^3.5.3",
     "@tanstack/react-query": "^4.29.12",
     "firebase": "^9.22.1",
@@ -24,7 +25,8 @@
     "react-router-dom": "^6.12.0",
     "react-spinners": "^0.13.8",
     "sort-by": "^1.2.0",
-    "sweetalert2": "^11.7.11"
+    "sweetalert2": "^11.7.11",
+    "swiper": "^9.3.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",

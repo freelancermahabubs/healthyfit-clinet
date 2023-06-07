@@ -13,3 +13,16 @@ export const saveUser = (user) => {
     .then((res) => res.json())
     .then((data) => console.log(data));
 };
+
+export const becomeHost = (email) => {
+  const currentUser = {
+    role: "host",
+  };
+  return fetch(`${import.meta.env.VITE_API_URL}/users/${email}`, {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(currentUser),
+  }).then((res) => res.json());
+};
