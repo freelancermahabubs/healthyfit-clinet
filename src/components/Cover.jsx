@@ -26,6 +26,11 @@ const Cover = () => {
                 by the readable content layout readable English.ratione, id
                 soluta aspernatur nulla minus.
               </p>
+              <div className="text-center mr-20">
+                <button className="bg-white p-2 rounded text-xl font-semibold text-orange-400 hover:border-r-4 border-orange-400 ">
+                  Get Quote
+                </button>
+              </div>
             </div>
             <div
               style={{
