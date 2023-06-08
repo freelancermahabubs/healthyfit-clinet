@@ -54,7 +54,7 @@ const AddClassForm = ({
               <input
                 className="w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md "
                 name="instructorEmail "
-                id="price"
+                id="instructorEmail"
                 type="text"
                 placeholder="Instructor Email "
                 required

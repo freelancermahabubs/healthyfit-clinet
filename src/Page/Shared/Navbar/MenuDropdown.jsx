@@ -8,7 +8,7 @@ import useAdmin from "../../../api/useAdmin";
 import useInstructor from "../../../api/useInstructor";
 
 const MenuDropdown = () => {
-  const { user, logOut, role, setRole } = useAuth();
+  const { user, logOut, setRole } = useAuth();
   const [isAdmin] = useAdmin();
   const [isInstructor] = useInstructor();
   const [isOpen, setIsOpen] = useState(false);

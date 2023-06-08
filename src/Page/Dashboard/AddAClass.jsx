@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { imageUpload } from "../../api/imageUpload";
 import useAuth from "../../hooks/useAuth";
 import AddClassForm from "../../components/Forms/AddClassForm";
+import { addClass } from "../../api/class";
 
 const AddAClass = () => {
   const { user } = useAuth();
@@ -18,23 +19,23 @@ const AddAClass = () => {
     setLoading(true);
     const form = e.target;
     const className = form.className.value;
-    const instructorName = form.instructorName.value;
-    const instructorEmail = form.instructorEmail.value;
+    const instructorName = form.displayName;
+    const instructorEmail = form.email;
     const availableSeats = form.availableSeats.value;
-    const price = form.price.value;
+    const classPrice = form.price.value;
     const image = form.image.files[0];
     // upload Imag
+    console.log(classPrice);
     setUploadButtonText("Uploading...");
     imageUpload(image)
       .then((data) => {
-        const roomData = {
+        const classesData = {
           image: data.data.display_url,
-          location,
           className,
           instructorName,
           instructorEmail,
           availableSeats,
-          price,
+          classPrice,
 
           instructor: {
             name: user?.displayName,
@@ -44,13 +45,13 @@ const AddAClass = () => {
         };
 
         // post room data to server
-        AddAClass(roomData)
+        addClass(classesData)
           .then((data) => {
             console.log(data);
             setUploadButtonText("Uploaded!");
             setLoading(false);
             toast.success("Class Added SuccessFull");
-            navigate("/dashboard/my-class");
+            navigate("/instructor-dashBoard/my-class");
           })
           .catch((error) => console.log(error));
 

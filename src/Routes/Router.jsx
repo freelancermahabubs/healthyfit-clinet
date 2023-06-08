@@ -17,6 +17,7 @@ import StudentDashboard from "../Layout/StudentDashboard";
 import MySelectedClasses from "../Page/Dashboard/MySelectedClasses";
 import Payment from "../Page/Dashboard/Payment";
 import MyEnrolledClasses from "../Page/Dashboard/MyEnrolledClasses";
+import MyClasses from "../Page/Dashboard/MyClasses";
 
 export const router = createBrowserRouter([
   {
@@ -78,7 +79,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "my-class",
-        element: <ManageUsers />,
+        element: <MyClasses />,
       },
     ],
   },

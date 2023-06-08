@@ -53,7 +53,7 @@ const AdminDashBoard = () => {
             <li className="pt-2">
               <NavLink
                 className="bg-red-400 text-xl text-white"
-                to="/admin-dashBoard/manage-classes"
+                to="/admin-dashBoard/manage-class"
               >
                 Manage Classes
               </NavLink>
