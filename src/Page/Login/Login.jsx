@@ -146,11 +146,7 @@ const Login = () => {
                   type="submit"
                   className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 w-full rounded-md py-3 text-white"
                 >
-                  {loading ? (
-                    <ImSpinner9 className="m-auto animate-spin" siz={24} />
-                  ) : (
-                    "Continue"
-                  )}
+                  Continue
                 </button>
               </div>
             </form>

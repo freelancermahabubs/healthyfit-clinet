@@ -1,7 +1,8 @@
 // save user to database
 export const saveUser = (user) => {
   const currentUser = {
-    email: user.email,
+    email: user?.email,
+    name: user?.displayName,
   };
   fetch(`${import.meta.env.VITE_API_URL}/users/${user?.email}`, {
     method: "PUT",
@@ -14,15 +15,8 @@ export const saveUser = (user) => {
     .then((data) => console.log(data));
 };
 
-export const becomeHost = (email) => {
-  const currentUser = {
-    role: "host",
-  };
-  return fetch(`${import.meta.env.VITE_API_URL}/users/${email}`, {
-    method: "PUT",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(currentUser),
-  }).then((res) => res.json());
+export const getRole = async (email) => {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${email}`);
+  const user = await res.json();
+  return user?.role;
 };
