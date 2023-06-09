@@ -1,114 +1,148 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { useEffect } from "react";
+import FeedbackModal from "../../components/FeedbackModal/FeedbackModal";
+// import Swal from "sweetalert2";
 
 const ManageClasses = () => {
   const [classes, setClasses] = useState([]);
-  const [axiosSecure] = useAxiosSecure();
-  const { data: users = [], refetch } = useQuery(["users"], async () => {
-    const res = await axiosSecure.get("/users");
-    return res.data;
-  });
-
+  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
+  const [selectedClassId, setSelectedClassId] = useState("");
+  const [feedbackText, setFeedbackText] = useState("");
   useEffect(() => {
-    fetchClasses();
+    // Fetch classes data from the backend
+    fetch(`${import.meta.env.VITE_API_URL}/all-class`)
+      .then((response) => response.json())
+      .then((data) => setClasses(data))
+      .catch((error) => console.error("Error fetching classes:", error));
   }, []);
 
-  const fetchClasses = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/admin/classes`
-      );
-      setClasses(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+  const handleApproveClass = (classId) => {
+    // Update class status to "approved" in the backend
+    fetch(`${import.meta.env.VITE_API_URL}/classes/${classId}/approve`, {
+      method: "PUT",
+    })
+      .then(() => {
+        // Update the class status in the frontend
+        const updatedClasses = classes.map((cls) => {
+          if (cls._id === classId) {
+            return { ...cls, status: "approved" };
+          }
+          return cls;
+        });
+        setClasses(updatedClasses);
+      })
+      .catch((error) => console.error("Error approving class:", error));
   };
 
-  const handleApprove = async (classId) => {
-    try {
-      await axios.patch(
-        `${import.meta.env.VITE_API_URL}/admin/classes/${classId}/approve`,
-        {
-          status: "approved",
-        }
-      );
-      fetchClasses();
-    } catch (error) {
-      console.error(error);
-    }
+  const handleDenyClass = (classId) => {
+    // Update class status to "denied" in the backend
+    fetch(`${import.meta.env.VITE_API_URL}/classes/${classId}/deny`, {
+      method: "PUT",
+    })
+      .then(() => {
+        // Update the class status in the frontend
+        const updatedClasses = classes.map((cls) => {
+          if (cls._id === classId) {
+            return { ...cls, status: "denied" };
+          }
+          return cls;
+        });
+        setClasses(updatedClasses);
+      })
+      .catch((error) => console.error("Error denying class:", error));
   };
 
-  const handleDeny = async (classId) => {
-    try {
-      await axios.patch(
-        `${import.meta.env.VITE_API_URL}/admin/classes/${classId}/deny`,
-        {
-          status: "denied",
-        }
-      );
-      fetchClasses();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const handleSubmitFeedback = () => {
+    // Prepare the feedback data
+    const feedbackData = {
+      classId: selectedClassId,
+      feedback: feedbackText,
+    };
 
-  const handleSendFeedback = async (classId) => {
-    // Implement the logic to open the modal and handle sending feedback
-    // You can use a state variable to track the selected class and pass it to the modal component
+    // Send the feedback to the backend
+    fetch(
+      `${import.meta.env.VITE_API_URL}/classes/${selectedClassId}/feedback`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(feedbackData),
+      }
+    )
+      .then(() => {
+        // Close the feedback modal
+        setFeedbackModalOpen(false);
+        // Reset the selected class and feedback text
+        setSelectedClassId("");
+        setFeedbackText("");
+        // Perform any necessary actions after submitting the feedback
+      })
+      .catch((error) => console.error("Error submitting feedback:", error));
   };
 
   return (
     <div>
-      <table className="table">
-        <thead>
-          <tr>
+      <table className="table w-1/2 ">
+        <thead className="bg-slate-300 rounded">
+          <tr className="text-end">
             <th>Class Image</th>
             <th>Class Name</th>
             <th>Instructor Name</th>
             <th>Instructor Email</th>
             <th>Available Seats</th>
             <th>Price</th>
-            <th>Status</th>
+            <th className="text-end">Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {classes.map((classItem) => (
-            <tr key={classItem._id}>
-              <td>{classItem.image}</td>
-              <td>{classItem.name}</td>
-              <td>{classItem.instructor.name}</td>
-              <td>{classItem.instructor.email}</td>
-              <td>{classItem.availableSeats}</td>
-              <td>{classItem.price}</td>
-              <td>{classItem.status}</td>
+          {classes.map((cls) => (
+            <tr key={cls._id}>
               <td>
-                {classItem.status === "pending" && (
-                  <>
-                    <button
-                      onClick={() => handleApprove(classItem._id)}
-                      disabled={classItem.status !== "pending"}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      onClick={() => handleDeny(classItem._id)}
-                      disabled={classItem.status !== "pending"}
-                    >
-                      Deny
-                    </button>
-                    <button onClick={() => handleSendFeedback(classItem._id)}>
-                      Send Feedback
-                    </button>
-                  </>
-                )}
+                <img className="w-28" src={cls.classImage} alt="Class" />
+              </td>
+              <td>{cls.className}</td>
+              <td>{cls.instructor.name}</td>
+              <td>{cls.instructor.email}</td>
+              <td>{cls.availableSeats}</td>
+              <td>${cls.classPrice}</td>
+              <td>{cls.status}</td>
+              <td className="space-y-2 text-center">
+                <button
+                  onClick={() => handleApproveClass(cls._id)}
+                  disabled={cls.status !== "pending"}
+                  className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+                >
+                  Approve
+                </button>
+                <button
+                  onClick={() => handleDenyClass(cls._id)}
+                  disabled={cls.status !== "pending"}
+                  className="bg-red-500 text-white px-7 py-2 rounded disabled:opacity-50"
+                >
+                  Deny
+                </button>
+                <button
+                  onClick={() => {
+                    setSelectedClassId(cls._id);
+                    setFeedbackModalOpen(true);
+                  }}
+                  className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+                >
+                  Feedback
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      <FeedbackModal
+        isOpen={feedbackModalOpen}
+        onClose={() => setFeedbackModalOpen(false)}
+        onSubmit={handleSubmitFeedback}
+      />
     </div>
   );
 };

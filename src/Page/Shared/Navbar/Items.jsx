@@ -7,10 +7,10 @@ const Items = () => {
         <Link>
           <li>Home</li>
         </Link>
-        <Link>
+        <Link to="/instructors">
           <li>Instructors</li>
         </Link>
-        <Link>
+        <Link to="/class">
           <li>Classes</li>
         </Link>
       </ul>

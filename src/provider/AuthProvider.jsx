@@ -23,11 +23,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    if (user) {
-      getRole(user?.email).then((data) => setRole(data));
-    }
-  }, [user]);
+
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
@@ -60,6 +56,11 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  useEffect(() => {
+    if (user) {
+      getRole(user?.email).then((data) => setRole(data));
+    }
+  }, [user]);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);

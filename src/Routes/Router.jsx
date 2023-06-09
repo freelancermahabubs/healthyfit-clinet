@@ -5,19 +5,19 @@ import SingUp from "../Page/SingUp/SingUp";
 import Login from "../Page/Login/Login";
 import ErrorPage from "../components/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
-
-import AddAClass from "../Page/Dashboard/AddAClass";
-import AdminRoutes from "./AdminRoutes";
-import ManageUsers from "../Page/Dashboard/ManageUsers";
-
 import AdminDashBoard from "../Layout/AdminDashBoard";
-import InstructorDashBoard from "../Layout/InstructorDashBoard";
-import ManageClasses from "../Page/Dashboard/ManageClasses";
-import StudentDashboard from "../Layout/StudentDashboard";
-import MySelectedClasses from "../Page/Dashboard/MySelectedClasses";
-import Payment from "../Page/Dashboard/Payment";
-import MyEnrolledClasses from "../Page/Dashboard/MyEnrolledClasses";
+import ManageUsers from "../Page/Dashboard/ManageUsers";
+import AddAClass from "../Page/Dashboard/AddAClass";
 import MyClasses from "../Page/Dashboard/MyClasses";
+import MySelectedClasses from "../Page/Dashboard/MySelectedClasses";
+import MyEnrolledClasses from "../Page/Dashboard/MyEnrolledClasses";
+import Payment from "../Page/Dashboard/Payment";
+import AdminRoutes from "./AdminRoutes";
+import ManageClasses from "../Page/Dashboard/ManageClasses";
+import InstructorDashBoard from "../Layout/InstructorDashBoard";
+import StudentDashboard from "../Layout/StudentDashboard";
+import Class from "../Page/Class/Class";
+import Instructors from "../Page/Instructors/Instructors";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +28,14 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/class",
+        element: <Class />,
+      },
+      {
+        path: "/instructors",
+        element: <Instructors />,
       },
       {
         path: "/singup",

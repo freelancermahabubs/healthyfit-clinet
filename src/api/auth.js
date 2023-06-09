@@ -16,7 +16,9 @@ export const saveUser = (user) => {
 };
 
 export const getRole = async (email) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${email}`);
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/users/admin/${email}`
+  );
   const user = await res.json();
   return user?.role;
 };

@@ -23,19 +23,22 @@ const AddAClass = () => {
     const instructorEmail = form.email;
     const availableSeats = form.availableSeats.value;
     const classPrice = form.price.value;
-    const image = form.image.files[0];
+    const classImage = form.image.files[0];
     // upload Imag
     console.log(classPrice);
     setUploadButtonText("Uploading...");
-    imageUpload(image)
+    imageUpload(classImage)
       .then((data) => {
         const classesData = {
-          image: data.data.display_url,
+          classImage: data.data.display_url,
           className,
           instructorName,
           instructorEmail,
           availableSeats,
           classPrice,
+          status: "pending",
+          totalEnrolledStudents: 0,
+          feedback: "",
 
           instructor: {
             name: user?.displayName,
@@ -64,8 +67,8 @@ const AddAClass = () => {
       });
   };
 
-  const handleImageChange = (image) => {
-    setUploadButtonText(image.name);
+  const handleImageChange = (classImage) => {
+    setUploadButtonText(classImage.name);
   };
 
   return (

@@ -4,8 +4,9 @@ import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 
 import useAuth from "../../../hooks/useAuth";
-import useAdmin from "../../../api/useAdmin";
-import useInstructor from "../../../api/useInstructor";
+
+import useAdmin from "../../../hooks/useAdmin";
+import useInstructor from "../../../hooks/useInstructor";
 
 const MenuDropdown = () => {
   const { user, logOut, setRole } = useAuth();

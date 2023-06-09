@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import Cover from "../../../components/Cover";
+// import FeaturedClass from "./FeaturedClass";
 
 const Home = () => {
   return (
@@ -7,8 +8,8 @@ const Home = () => {
       <Helmet>
         <title>HealthyFit | Home</title>
       </Helmet>
-
       <Cover />
+      {/* <FeaturedClass /> */}
     </div>
   );
 };
