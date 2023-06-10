@@ -1,15 +1,15 @@
 import { TbFidgetSpinner } from "react-icons/tb";
-import { Player } from "@lottiefiles/react-lottie-player";
-import AnimationLottie from "../../assets/addClass.json";
+
 const UpdateClassForm = ({
   handleSubmit,
-  handleImageChange,
-  loading = false,
+  loading,
+  handleImageUpdate,
+  classData,
+  setClassData,
   uploadButtonText,
-  user,
 }) => {
   return (
-    <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl px-5 bg-gray-50">
+    <div className="w-full min-h-[calc(20vh-10px)] flex flex-col justify-center items-center text-gray-800 rounded-xl px-5 bg-gray-50">
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div className="space-y-6">
@@ -26,9 +26,6 @@ const UpdateClassForm = ({
                 required
               />
             </div>
-            <div className="mx-auto w-[80%]">
-              <Player autoplay loop src={AnimationLottie}></Player>
-            </div>
           </div>
 
           <div className="space-y-6">
@@ -37,42 +34,53 @@ const UpdateClassForm = ({
                 Instructor name
               </label>
               <input
+                value={classData?.instructorName}
+                onChange={(event) =>
+                  setClassData({
+                    ...classData,
+                    instructorName: event.target.value,
+                  })
+                }
                 className="w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md "
                 name="instructorName"
                 id="instructorName"
                 type="text"
                 placeholder="Instructor Name"
                 required
-                defaultValue={user?.displayName}
               />
             </div>
-
             <div className="space-y-1 text-sm">
               <label htmlFor="price" className="block text-gray-600">
                 Instructor email
               </label>
               <input
+                value={classData?.instructorEmail}
+                onChange={(event) =>
+                  setClassData({
+                    ...classData,
+                    instructorEmail: event.target.value,
+                  })
+                }
                 className="w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md "
                 name="instructorEmail "
                 id="instructorEmail"
                 type="text"
                 placeholder="Instructor Email "
                 required
-                defaultValue={user?.email}
               />
             </div>
 
             <div className=" p-4 bg-white w-full  m-auto rounded-lg">
               <div className="file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg">
-                <div className="flex flex-col w-max mx-auto text-center">
+                <div className="  text-center">
                   <label>
                     <input
-                      onChange={(event) =>
-                        handleImageChange(event.target.files[0])
-                      }
+                      onChange={(event) => {
+                        handleImageUpdate(event.target.files[0]);
+                      }}
                       className="text-sm cursor-pointer w-36 hidden"
                       type="file"
-                      name="classImage"
+                      name="image"
                       id="image"
                       accept="image/*"
                       hidden
@@ -84,13 +92,19 @@ const UpdateClassForm = ({
                 </div>
               </div>
             </div>
-
-            <div className="flex  justify-between gap-2">
+            <div className=" gap-2">
               <div className="space-y-1 w-full text-sm">
                 <label htmlFor="bedrooms" className="block text-gray-600">
                   Available seats
                 </label>
                 <input
+                  value={classData?.availableSeats}
+                  onChange={(event) =>
+                    setClassData({
+                      ...classData,
+                      availableSeats: event.target.value,
+                    })
+                  }
                   className="w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md "
                   name="availableSeats"
                   id="availableSeats"
@@ -100,12 +114,16 @@ const UpdateClassForm = ({
                 />
               </div>
 
-              <div className="space-y-1 w-full text-sm">
+              <div className="space-y-1 w-64 text-sm ">
                 <label htmlFor="bathrooms" className="block text-gray-600">
                   Price
                 </label>
                 <input
-                  className="w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md "
+                  value={classData?.price}
+                  onChange={(event) =>
+                    setClassData({ ...classData, price: event.target.value })
+                  }
+                  className="w-40 px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md "
                   name="price"
                   id="price"
                   type="number"

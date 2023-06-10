@@ -11,11 +11,11 @@
 //       .catch((error) => console.error("Error retrieving classes:", error));
 //   }, []);
 //   return (
-//     <div>
+//     <motion.div>
 //       {classes.map((singleClass) => {
 //         <FeaturedCard key={singleClass._id} singleClass={singleClass} />;
 //       })}
-//     </div>
+//     </motion.div>
 //   );
 // };
 

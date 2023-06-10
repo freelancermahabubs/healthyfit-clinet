@@ -1,7 +1,7 @@
 // update a room
 export const updateClass = async (classUpdate, id) => {
   const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/class-update/${id}`,
+    `${import.meta.env.VITE_API_URL}/classUpdate/${id}`,
     {
       method: "PUT",
       headers: {

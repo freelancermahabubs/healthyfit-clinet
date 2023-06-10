@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { imageUpload } from "../../api/imageUpload";
 import UpdateClassForm from "../../components/Forms/UpdateClassForm";
 import useAuth from "../../hooks/useAuth";
@@ -11,7 +11,7 @@ const UpdateClass = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [uploadButtonText, setUploadButtonText] = useState("Upload Image");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // handleFrom Submit
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,14 +42,14 @@ const UpdateClass = () => {
             email: user?.email,
           },
         };
-        // post room data to server
+        // Update Class data
         updateClass(classesData)
           .then((data) => {
             console.log(data);
             setUploadButtonText("Uploaded!");
             setLoading(false);
-            toast.success("Class Added SuccessFull");
-            navigate("/instructor-dashBoard/my-class");
+            toast.success("Class Update SuccessFull");
+            // navigate("/instructor-dashBoard/my-class");
           })
           .catch((error) => console.log(error));
 
