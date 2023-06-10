@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import FeedbackModal from "../../components/FeedbackModal/FeedbackModal";
+import { Helmet } from "react-helmet-async";
 // import Swal from "sweetalert2";
 
 const ManageClasses = () => {
@@ -52,13 +53,13 @@ const ManageClasses = () => {
       .catch((error) => console.error("Error denying class:", error));
   };
 
-  const handleSubmitFeedback = () => {
+  const handleSubmitFeedback = (feedback) => {
     // Prepare the feedback data
     const feedbackData = {
       classId: selectedClassId,
-      feedback: feedbackText,
+      feedback,
     };
-
+    console.log(feedback);
     // Send the feedback to the backend
     fetch(
       `${import.meta.env.VITE_API_URL}/classes/${selectedClassId}/feedback`,
@@ -83,6 +84,9 @@ const ManageClasses = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>HealthyFit | Manage Classes</title>
+      </Helmet>
       <table className="table w-1/2 ">
         <thead className="bg-slate-300 rounded">
           <tr className="text-end">

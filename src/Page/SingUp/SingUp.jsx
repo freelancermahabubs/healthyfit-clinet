@@ -28,7 +28,7 @@ const SignUp = () => {
     setLoading,
     signInWithGoogle,
     updateUserProfile,
-    loading,
+
     user,
   } = useAuth();
   // const navigate = useNavigate();

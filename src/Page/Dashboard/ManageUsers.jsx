@@ -28,7 +28,7 @@ const ManageUsers = () => {
         }
       });
   };
-  const makeInstructor = (userId, user) => {
+  const makeInstructor = (userId) => {
     fetch(`${import.meta.env.VITE_API_URL}/users/instructor/${userId}`, {
       method: "PATCH",
     })
@@ -39,7 +39,7 @@ const ManageUsers = () => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: `${user.name} is an Instructor Now!`,
+            title: "is an Instructor Now!",
             showConfirmButton: false,
             timer: 1500,
           });

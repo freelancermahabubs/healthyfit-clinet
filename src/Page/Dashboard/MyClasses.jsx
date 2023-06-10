@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 const MyClasses = () => {
   const [classes, setClasses] = useState([]);
-  console.log(classes);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -19,6 +21,9 @@ const MyClasses = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>HealthyFit | My Classes</title>
+      </Helmet>
       <table className="table w-1/2">
         <thead className="bg-gray-300">
           <tr className="text-end">
@@ -47,9 +52,11 @@ const MyClasses = () => {
               <td>${cls.classPrice}</td>
               <td>{cls.status}</td>
               <td>
-                <button className=" p-3  text-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-md py-3 text-white">
-                  Update
-                </button>
+                <Link to={`/classUpdate/${cls._id}`}>
+                  <button className=" p-3  text-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-md py-3 text-white">
+                    Update
+                  </button>
+                </Link>
               </td>
             </tr>
           ))}

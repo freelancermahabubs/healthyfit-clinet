@@ -1,15 +1,27 @@
 import { Helmet } from "react-helmet-async";
 import Cover from "../../../components/Cover";
-// import FeaturedClass from "./FeaturedClass";
+
+import { useEffect, useState } from "react";
+import FeaturedCard from "../../../components/Cards/FeaturedCard";
 
 const Home = () => {
+  const [classes, setClasses] = useState([]);
+  console.log(classes);
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/featured-class`)
+      .then((response) => response.json())
+      .then((classes) => setClasses(classes))
+      .catch((error) => console.error("Error retrieving classes:", error));
+  }, []);
   return (
     <div>
       <Helmet>
         <title>HealthyFit | Home</title>
       </Helmet>
       <Cover />
-      {/* <FeaturedClass /> */}
+      {classes.map((singleClass) => {
+        <FeaturedCard key={singleClass._id} singleClass={singleClass} />;
+      })}
     </div>
   );
 };
