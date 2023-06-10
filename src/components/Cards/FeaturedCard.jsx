@@ -1,5 +1,4 @@
 const FeaturedCard = ({ singleClass }) => {
-  console.log(singleClass);
   return (
     <div className="max-w-sm min-h-full rounded overflow-hidden shadow-lg bg-white mt-4">
       <img src={singleClass.image} alt="image" />

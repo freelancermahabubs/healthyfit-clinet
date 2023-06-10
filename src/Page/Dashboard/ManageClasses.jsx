@@ -64,7 +64,7 @@ const ManageClasses = () => {
     fetch(
       `${import.meta.env.VITE_API_URL}/classes/${selectedClassId}/feedback`,
       {
-        method: "POST",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },

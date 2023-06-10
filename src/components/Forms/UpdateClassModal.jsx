@@ -5,7 +5,7 @@ import { updateClass } from "../../api/updateClass";
 import { toast } from "react-hot-toast";
 import UpdateClassForm from "./UpdateClassForm";
 
-const UpdateClassModal = ({ setIsEditModalOpen, isOpen, id }) => {
+const UpdateClassModal = ({ setIsEditModalOpen, isOpen, cls, id }) => {
   const [loading, setLoading] = useState(false);
   const [classData, setClassData] = useState(cls);
   const [uploadButtonText, setUploadButtonText] = useState("Upload Image");
