@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { imageUpload } from "../../api/imageUpload";
 import UpdateClassForm from "../../components/Forms/UpdateClassForm";
 import useAuth from "../../hooks/useAuth";
+import { updateClass } from "../../api/updateClass";
 
 const UpdateClass = () => {
   const { user } = useAuth();
@@ -42,7 +43,7 @@ const UpdateClass = () => {
           },
         };
         // post room data to server
-        classesData
+        updateClass(classesData)
           .then((data) => {
             console.log(data);
             setUploadButtonText("Uploaded!");
