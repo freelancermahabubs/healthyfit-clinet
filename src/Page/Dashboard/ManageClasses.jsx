@@ -87,8 +87,8 @@ const ManageClasses = () => {
       <Helmet>
         <title>HealthyFit | Manage Classes</title>
       </Helmet>
-      <table className="table w-1/2 ">
-        <thead className="bg-slate-300 rounded">
+      <table className="table shadow-sm mx-auto w-[90%]">
+        <thead className="bg-slate-300  ">
           <tr className="text-end">
             <th>Class Image</th>
             <th>Class Name</th>

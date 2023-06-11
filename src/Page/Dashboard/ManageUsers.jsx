@@ -55,8 +55,8 @@ const ManageUsers = () => {
 
       <div className="px-12">
         <div>
-          <table className="px-5 py-5 border-b border-gray-200 bg-white text-sm table ">
-            <thead className="">
+          <table className="px-5 py-5 shadow-sm  mt-5 border-b border-gray-200 bg-white text-sm table ">
+            <thead className="bg-gray-500 text-xl text-white">
               <tr>
                 <th>#</th>
                 <th>Name</th>

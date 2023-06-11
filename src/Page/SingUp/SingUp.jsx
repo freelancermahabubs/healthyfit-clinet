@@ -4,18 +4,19 @@ import Swal from "sweetalert2";
 import { Player } from "@lottiefiles/react-lottie-player";
 import AnimationLottie from "../../assets/login.json";
 import { Helmet } from "react-helmet-async";
-import { ImSpinner9 } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
-import useAuth from "../../hooks/useAuth";
 
+import useAuth from "../../hooks/useAuth";
+import { BsEyeSlashFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { saveUser } from "../../api/auth";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-
+import "./SingUp.css";
 const SignUp = () => {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate("");
   let location = useLocation();
+  const [passwordShown, setPasswordShown] = useState(false);
   const from = location.state?.from?.pathname || "/";
   const {
     register,
@@ -82,7 +83,9 @@ const SignUp = () => {
         setLoading(false);
       });
   };
-
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
   return (
     <>
       <Helmet>
@@ -163,14 +166,25 @@ const SignUp = () => {
                   )}
                 </div>
                 <div>
-                  <div className="flex justify-between">
-                    <label htmlFor="password" className="text-sm mb-2">
+                  <div className="flex justify-between  password-filed">
+                    <label htmlFor="password" className="text-sm mb-2 ">
                       Password
                     </label>
+                    {passwordShown ? (
+                      <BsEyeSlashFill
+                        onClick={togglePassword}
+                        className="eye text-red-500"
+                      />
+                    ) : (
+                      <BsEyeSlashFill
+                        onClick={togglePassword}
+                        className="eye text-red-500"
+                      />
+                    )}
                   </div>
                   <input
                     style={{ borderRadius: "0px 200px 0px 200px" }}
-                    type="password"
+                    type={passwordShown ? "text" : "password"}
                     name="password"
                     id="password"
                     {...register("password", {
@@ -204,14 +218,25 @@ const SignUp = () => {
                   )}
                 </div>
                 <div>
-                  <div className="flex justify-between">
-                    <label htmlFor="password" className="text-sm mb-2">
+                  <div className="flex justify-between password-filed">
+                    <label htmlFor="password" className="text-sm mb-2 ">
                       Confirm Password
                     </label>
+                    {passwordShown ? (
+                      <BsFillEyeSlashFill
+                        onClick={togglePassword}
+                        className="eye text-blue-500"
+                      />
+                    ) : (
+                      <BsEyeSlashFill
+                        onClick={togglePassword}
+                        className="eye text-blue-500"
+                      />
+                    )}
                   </div>
                   <input
                     style={{ borderRadius: "0px 200px 0px 200px" }}
-                    type="password"
+                    type={passwordShown ? "text" : "password"}
                     name="confirmPassword"
                     id="password"
                     {...register("confirmPassword", {

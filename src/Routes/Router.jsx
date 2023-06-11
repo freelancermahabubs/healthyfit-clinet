@@ -10,7 +10,6 @@ import ManageUsers from "../Page/Dashboard/ManageUsers";
 import AddAClass from "../Page/Dashboard/AddAClass";
 import MyClasses from "../Page/Dashboard/MyClasses";
 import MyEnrolledClasses from "../Page/Dashboard/MyEnrolledClasses";
-import Payment from "../Page/Dashboard/Payment";
 import AdminRoutes from "./AdminRoutes";
 import ManageClasses from "../Page/Dashboard/ManageClasses";
 import InstructorDashBoard from "../Layout/InstructorDashBoard";
@@ -20,6 +19,7 @@ import Instructors from "../Page/Instructors/Instructors";
 import InstructorRoute from "./InstructorRoute";
 import UpdateClass from "../Page/Dashboard/UpdateClass";
 import MySelectedClassesPage from "../Page/Dashboard/MySelectedClassesPage";
+import Payment from "../Page/Dashboard/Payment";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -91,7 +91,7 @@ export const router = createBrowserRouter([
         path: "update-class/:id",
         element: <UpdateClass />,
         loader: ({ params }) =>
-          fetch(`${import.meta.env.VITE_API_URL}/classUpdate/${params.id}`),
+          fetch(`${import.meta.env.VITE_API_URL}/update-class/${params.id}`),
       },
     ],
   },

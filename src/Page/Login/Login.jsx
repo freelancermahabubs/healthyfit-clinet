@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { ImSpinner9 } from "react-icons/im";
 import { BsFillEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
@@ -13,7 +12,7 @@ import { useState } from "react";
 import { saveUser } from "../../api/auth";
 import "./Login.css";
 const Login = () => {
-  const { singIn, loading, signInWithGoogle, setLoading } = useAuth();
+  const { singIn, signInWithGoogle, setLoading } = useAuth();
   const [passwordShown, setPasswordShown] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");

@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 // import { useNavigate } from "react-router-dom";
-import { imageUpload } from "../../api/imageUpload";
 
 import useAuth from "../../hooks/useAuth";
 import { TbFidgetSpinner } from "react-icons/tb";
@@ -10,19 +9,13 @@ import AnimationLottie from "../../assets/update.json";
 
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
+import { imageUpload } from "../../api/imageUpload";
 
 const UpdateClass = () => {
   const classUpdate = useLoaderData();
-  const {
-    className,
-    instructorName,
-    instructorEmail,
-    availableSeats,
-    classPrice,
-    classImage,
-    _id,
-  } = classUpdate;
-  console.log(classUpdate);
+  const { className, availableSeats, classPrice, classImage, _id } =
+    classUpdate;
+
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [uploadButtonText, setUploadButtonText] = useState("Upload Image");
@@ -39,7 +32,7 @@ const UpdateClass = () => {
     const classPrice = form.price.value;
     const classImage = form.image.files[0];
     // upload Imag
-    console.log(classPrice);
+
     setUploadButtonText("Uploading...");
     imageUpload(classImage)
       .then((data) => {
@@ -49,7 +42,7 @@ const UpdateClass = () => {
           instructorName,
           instructorEmail,
           availableSeats,
-          classPrice,
+          classPrice: parseFloat(classPrice),
 
           instructor: {
             name: user?.displayName,
@@ -58,7 +51,6 @@ const UpdateClass = () => {
           },
         };
 
-        console.log(classesData);
         fetch(`${import.meta.env.VITE_API_URL}/classUpdate/${_id}`, {
           method: "PUT",
           headers: {
@@ -69,7 +61,6 @@ const UpdateClass = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             setUploadButtonText("Uploaded!");
             setLoading(false);
             if (data.modifiedCount > 0) {
@@ -78,7 +69,7 @@ const UpdateClass = () => {
                 text: "Class Update SuccessFull",
                 icon: "success",
                 confirmButtonText: "Cool",
-              }).catch((error) => console.log(error));
+              });
               setLoading(false);
             }
           });
@@ -108,6 +99,7 @@ const UpdateClass = () => {
                 type="text"
                 placeholder="Class Name"
                 required
+                defaultValue={className}
               />
             </div>
             <div className="mx-auto w-[80%]">
@@ -181,6 +173,7 @@ const UpdateClass = () => {
                   type="number"
                   placeholder="Available Seats"
                   required
+                  defaultValue={availableSeats}
                 />
               </div>
 
@@ -195,6 +188,7 @@ const UpdateClass = () => {
                   type="number"
                   placeholder="Price"
                   required
+                  defaultValue={classPrice}
                 />
               </div>
             </div>

@@ -4,11 +4,14 @@ import useAdmin from "../../hooks/useAdmin";
 import useInstructor from "../../hooks/useInstructor";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const Class = () => {
   const [classes, setClasses] = useState([]);
   const { user } = useAuth();
   // console.log(user);
+  const navigate = useNavigate();
   const [isAdmin] = useAdmin();
   const [isInstructor] = useInstructor();
 
@@ -21,12 +24,12 @@ const Class = () => {
 
   const handleSelect = (classId) => {
     if (!user) {
-      alert("Please log in before selecting the course.");
-      return;
+      toast.error("Please log in before selecting the course.");
+      return navigate("/login");
     }
 
     if (isAdmin || isInstructor) {
-      alert("Admins and instructors cannot select a course.");
+      toast.error("Admins and instructors cannot select a course.");
       return;
     }
 
@@ -41,7 +44,7 @@ const Class = () => {
 
     const payload = {
       selectedClass,
-      user: user.email, // or any other user identifier you want to send
+      email: user.email, // or any other user identifier you want to send
     };
     console.log(payload);
 
