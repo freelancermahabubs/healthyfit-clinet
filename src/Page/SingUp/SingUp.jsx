@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Player } from "@lottiefiles/react-lottie-player";
 import AnimationLottie from "../../assets/login.json";
@@ -14,8 +14,9 @@ import { toast } from "react-hot-toast";
 
 const SignUp = () => {
   const [success, setSuccess] = useState("");
-
-  const navigate = useNavigate();
+  const navigate = useNavigate("");
+  let location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -59,7 +60,7 @@ const SignUp = () => {
                   timer: 1500,
                 });
               }
-              navigate("/");
+              navigate(from, { replace: true });
             });
         })
         .catch((error) => {

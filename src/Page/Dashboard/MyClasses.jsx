@@ -2,12 +2,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 
-import UpdateClassModal from "../../components/Forms/UpdateClassModal";
+import { Link } from "react-router-dom";
 
 const MyClasses = () => {
   const [classes, setClasses] = useState([]);
-
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -55,23 +53,18 @@ const MyClasses = () => {
               <td>${cls.classPrice}</td>
               <td>{cls.status}</td>
               <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <span
-                  onClick={() => setIsEditModalOpen(true)}
-                  className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
-                >
+                <Link to={`/instructor-dashBoard/update-class/${cls._id}`}>
                   <span
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                  ></span>
-                  <span className="relative">Update</span>
-                </span>
-                <UpdateClassModal
-                  isOpen={isEditModalOpen}
-                  closeModal={() => setIsEditModalOpen(false)}
-                  cls={cls}
-                  id={cls._id}
-                  setIsEditModalOpen={setIsEditModalOpen}
-                />
+                    // onClick={() => setIsEditModalOpen(true)}
+                    className="relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                    ></span>
+                    <span className="relative">Update</span>
+                  </span>
+                </Link>
               </td>
             </tr>
           ))}

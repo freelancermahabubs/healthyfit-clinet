@@ -17,10 +17,9 @@ const Login = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  let from = location?.state?.from?.pathname || "/";
+  const navigate = useNavigate("");
+  let location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -62,7 +61,7 @@ const Login = () => {
         setSuccess(toast.success("Google SinIn Success", {}));
         // todo save add to db user
         saveUser(result.user);
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         toast.error(error.message);

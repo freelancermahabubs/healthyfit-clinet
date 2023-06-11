@@ -9,7 +9,6 @@ import AdminDashBoard from "../Layout/AdminDashBoard";
 import ManageUsers from "../Page/Dashboard/ManageUsers";
 import AddAClass from "../Page/Dashboard/AddAClass";
 import MyClasses from "../Page/Dashboard/MyClasses";
-import MySelectedClasses from "../Page/Dashboard/MySelectedClasses";
 import MyEnrolledClasses from "../Page/Dashboard/MyEnrolledClasses";
 import Payment from "../Page/Dashboard/Payment";
 import AdminRoutes from "./AdminRoutes";
@@ -18,8 +17,9 @@ import InstructorDashBoard from "../Layout/InstructorDashBoard";
 import StudentDashboard from "../Layout/StudentDashboard";
 import Class from "../Page/Class/Class";
 import Instructors from "../Page/Instructors/Instructors";
+import InstructorRoute from "./InstructorRoute";
 import UpdateClass from "../Page/Dashboard/UpdateClass";
-
+import MySelectedClassesPage from "../Page/Dashboard/MySelectedClassesPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -52,25 +52,19 @@ export const router = createBrowserRouter([
     path: "/admin-dashBoard",
     element: (
       <PrivateRoute>
-        <AdminDashBoard />
+        <AdminRoutes>
+          <AdminDashBoard />
+        </AdminRoutes>
       </PrivateRoute>
     ),
     children: [
       {
         path: "manage-class",
-        element: (
-          <AdminRoutes>
-            <ManageClasses />
-          </AdminRoutes>
-        ),
+        element: <ManageClasses />,
       },
       {
         path: "manage-users",
-        element: (
-          <AdminRoutes>
-            <ManageUsers />
-          </AdminRoutes>
-        ),
+        element: <ManageUsers />,
       },
     ],
   },
@@ -78,7 +72,9 @@ export const router = createBrowserRouter([
     path: "/instructor-dashBoard",
     element: (
       <PrivateRoute>
-        <InstructorDashBoard />
+        <InstructorRoute>
+          <InstructorDashBoard />
+        </InstructorRoute>
       </PrivateRoute>
     ),
     children: [
@@ -90,6 +86,12 @@ export const router = createBrowserRouter([
       {
         path: "my-class",
         element: <MyClasses />,
+      },
+      {
+        path: "update-class/:id",
+        element: <UpdateClass />,
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/classUpdate/${params.id}`),
       },
     ],
   },
@@ -103,7 +105,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "my-selected-class",
-        element: <MySelectedClasses />,
+        element: <MySelectedClassesPage />,
       },
       {
         path: "my-enrolled-classes",

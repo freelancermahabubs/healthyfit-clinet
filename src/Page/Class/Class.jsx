@@ -1,112 +1,114 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+
 import useAdmin from "../../hooks/useAdmin";
 import useInstructor from "../../hooks/useInstructor";
+import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
 
 const Class = () => {
+  const [classes, setClasses] = useState([]);
+  const { user } = useAuth();
+  // console.log(user);
   const [isAdmin] = useAdmin();
   const [isInstructor] = useInstructor();
-  const { user } = useAuth();
-  const [classes, setClasses] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchClasses();
+    fetch(`${import.meta.env.VITE_API_URL}/all-class`)
+      .then((response) => response.json())
+      .then((data) => setClasses(data))
+      .catch((error) => console.error("Error fetching classes:", error));
   }, []);
 
-  const fetchClasses = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/all-class`
-      );
-      setClasses(response.data);
-    } catch (error) {
-      console.error("Error fetching classes:", error);
-    }
-  };
-
-  const handleSelect = async (classId) => {
+  const handleSelect = (classId) => {
     if (!user) {
       alert("Please log in before selecting the course.");
-      return navigate("/login");
+      return;
+    }
+
+    if (isAdmin || isInstructor) {
+      alert("Admins and instructors cannot select a course.");
+      return;
     }
 
     const selectedClass = classes.find(
       (classItem) => classItem._id === classId
     );
 
-    if (selectedClass.availableSeats === 0) {
-      alert("No available seats for this class.");
+    if (!selectedClass) {
+      console.error("Selected class not found");
       return;
     }
 
-    // Check if the user is an admin or instructor
-    const isAdminOrInstructor =
-      isAdmin === "admin" || isInstructor === "instructor";
+    const payload = {
+      selectedClass,
+      user: user.email, // or any other user identifier you want to send
+    };
+    console.log(payload);
 
-    if (isAdminOrInstructor) {
-      alert("Admins/Instructors cannot select the course.");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/classes/select`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ classId }),
+    fetch(`${import.meta.env.VITE_API_URL}/select-class`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your class has been selected",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
-      );
-
-      if (response.ok) {
-        alert("Course selected successfully!");
-        // Perform any necessary UI updates or redirects after successful selection
-      } else {
-        const errorData = await response.json();
-        alert(errorData.error);
-      }
-    } catch (error) {
-      console.error("Error selecting course:", error);
-    }
+      })
+      .catch((error) => {
+        console.error("Error selecting class:", error);
+        // Handle error, show error message, etc.
+      });
   };
+
   return (
-    <div className="flex flex-wrap justify-center">
-      {classes.map((cls) => (
-        <div
-          key={cls._id}
-          className={`max-w-sm rounded overflow-hidden shadow-lg ${
-            cls.availableSeats === 0 ? "bg-red-200" : "bg-white"
-          } m-4`}
-        >
-          <img className="w-full" src={cls.classImage} alt={cls.classImage} />
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">{cls.className}</div>
-            <p className="text-gray-700 text-base">
-              Instructor: {cls.instructor.name}
+    <div className="container mx-auto py-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {classes.map((classItem) => (
+          <div
+            key={classItem._id}
+            className={`bg-white shadow-md rounded-md p-4 ${
+              classItem.availableSeats === 0 ? "bg-red-500" : ""
+            }`}
+          >
+            <img
+              src={classItem.classImage}
+              alt={classItem.classImage}
+              className="mb-4"
+            />
+            <h2 className="text-lg font-bold">{classItem.className}</h2>
+            <p className="text-gray-600 mb-2">{classItem.instructorName}</p>
+            <p className="mb-2">
+              Available Seats: {classItem.availableSeats}
+              {classItem.availableSeats === 0 ? "(No seats available)" : ""}
             </p>
-            <p className="text-gray-700 text-base">
-              Available Seats: {cls.availableSeats}
-            </p>
-            <p className="text-gray-700 text-base">Price: ${cls.classPrice}</p>
+            <p className="mb-2">Price: ${classItem.classPrice}</p>
+
             <button
-              className={`mt-4 px-4 py-2 rounded-md ${
-                cls.availableSeats === 0
-                  ? "bg-gray-300 cursor-not-allowed"
+              disabled={
+                classItem.availableSeats === 0 || isAdmin || isInstructor
+              }
+              onClick={() => handleSelect(classItem._id)}
+              className={`${
+                classItem.availableSeats === 0 || isAdmin || isInstructor
+                  ? "bg-gray-400 cursor-not-allowed"
                   : "bg-blue-500"
-              }`}
-              onClick={() => handleSelect(cls._id)}
-              disabled={cls.availableSeats === 0}
+              } text-white rounded px-4 py-2`}
             >
               Select
             </button>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { FaUserShield, FaChalkboardTeacher } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import axios from "axios";
 
 const ManageUsers = () => {
   const [axiosSecure] = useAxiosSecure();

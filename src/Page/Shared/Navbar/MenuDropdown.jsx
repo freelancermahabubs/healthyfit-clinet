@@ -5,13 +5,9 @@ import { Link } from "react-router-dom";
 
 import useAuth from "../../../hooks/useAuth";
 
-import useAdmin from "../../../hooks/useAdmin";
-import useInstructor from "../../../hooks/useInstructor";
-
 const MenuDropdown = () => {
   const { user, logOut, setRole } = useAuth();
-  const [isAdmin] = useAdmin();
-  const [isInstructor] = useInstructor();
+
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -41,21 +37,6 @@ const MenuDropdown = () => {
             >
               Home
             </Link>
-            <div className="px-2 pt-2">
-              {isAdmin ? (
-                <>
-                  <Link to="/admin-dashBoard">Admin DashBoard</Link>
-                </>
-              ) : isInstructor ? (
-                <>
-                  <Link to="/instructor-dashBoard">Instructor DashBoard</Link>
-                </>
-              ) : (
-                <>
-                  <Link to="/student-dashboard"> Dashboard</Link>
-                </>
-              )}
-            </div>
             {user ? (
               <>
                 <div
