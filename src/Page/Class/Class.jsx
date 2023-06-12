@@ -16,7 +16,7 @@ const Class = () => {
   const [isInstructor] = useInstructor();
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/all-class`)
+    fetch(`${import.meta.env.VITE_API_URL}/all-class?status=approved`)
       .then((response) => response.json())
       .then((data) => setClasses(data))
       .catch((error) => console.error("Error fetching classes:", error));

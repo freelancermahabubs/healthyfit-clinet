@@ -6,6 +6,7 @@ import { imageUpload } from "../../api/imageUpload";
 import useAuth from "../../hooks/useAuth";
 import AddClassForm from "../../components/Forms/AddClassForm";
 import { addClass } from "../../api/class";
+import { Helmet } from "react-helmet-async";
 
 const AddAClass = () => {
   const { user } = useAuth();
@@ -72,13 +73,18 @@ const AddAClass = () => {
   };
 
   return (
-    <AddClassForm
-      handleSubmit={handleSubmit}
-      loading={loading}
-      handleImageChange={handleImageChange}
-      uploadButtonText={uploadButtonText}
-      user={user}
-    />
+    <>
+      <Helmet>
+        <title>HealthyFit | Add A Class</title>
+      </Helmet>
+      <AddClassForm
+        handleSubmit={handleSubmit}
+        loading={loading}
+        handleImageChange={handleImageChange}
+        uploadButtonText={uploadButtonText}
+        user={user}
+      />
+    </>
   );
 };
 

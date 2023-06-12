@@ -3,6 +3,7 @@ import { Elements } from "@stripe/react-stripe-js";
 
 import CheckoutForm from "./CheckoutForm/CheckoutForm";
 import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 // Todp: provide pubish key
 const striptPromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 const Payment = () => {
@@ -12,11 +13,16 @@ const Payment = () => {
   const price = parseFloat(from?.selectedClass?.classPrice?.toFixed(2));
 
   return (
-    <div>
-      <Elements stripe={striptPromise}>
-        <CheckoutForm classPaid={from} price={price} />
-      </Elements>
-    </div>
+    <>
+      <Helmet>
+        <title>HealthyFit | Payment</title>
+      </Helmet>
+      <div>
+        <Elements stripe={striptPromise}>
+          <CheckoutForm classPaid={from} price={price} />
+        </Elements>
+      </div>
+    </>
   );
 };
 

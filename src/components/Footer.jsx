@@ -16,7 +16,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="col-span-6 text-center md:text-left md:col-span-3">
-            <p className="pb-1 text-lg font-medium">Category</p>
+            <p className="pb-1 text-lg font-medium">About Us</p>
             <ul>
               <li>
                 <a
@@ -24,7 +24,7 @@ const Footer = () => {
                   href="#"
                   className="hover:dark:text-violet-400"
                 >
-                  Link
+                  Blog
                 </a>
               </li>
               <li>
@@ -33,7 +33,7 @@ const Footer = () => {
                   href="#"
                   className="hover:dark:text-violet-400"
                 >
-                  Link
+                  Careers
                 </a>
               </li>
               <li>
@@ -42,7 +42,7 @@ const Footer = () => {
                   href="#"
                   className="hover:dark:text-violet-400"
                 >
-                  Link
+                  Teach For Us
                 </a>
               </li>
               <li>
@@ -51,7 +51,7 @@ const Footer = () => {
                   href="#"
                   className="hover:dark:text-violet-400"
                 >
-                  Link
+                  Press Center
                 </a>
               </li>
               <li>
@@ -60,13 +60,13 @@ const Footer = () => {
                   href="#"
                   className="hover:dark:text-violet-400"
                 >
-                  Link
+                  Scholarships
                 </a>
               </li>
             </ul>
           </div>
           <div className="col-span-6 text-center md:text-left md:col-span-3">
-            <p className="pb-1 text-lg font-medium">Category</p>
+            <p className="pb-1 text-lg font-medium">Plans</p>
             <ul>
               <li>
                 <a
@@ -74,7 +74,7 @@ const Footer = () => {
                   href="#"
                   className="hover:dark:text-violet-400"
                 >
-                  Link
+                  Student Solutions
                 </a>
               </li>
               <li>
@@ -83,7 +83,7 @@ const Footer = () => {
                   href="#"
                   className="hover:dark:text-violet-400"
                 >
-                  Link
+                  Teacher Solutions
                 </a>
               </li>
               <li>
@@ -92,7 +92,7 @@ const Footer = () => {
                   href="#"
                   className="hover:dark:text-violet-400"
                 >
-                  Link
+                  Study.com for Schools
                 </a>
               </li>
               <li>
@@ -101,7 +101,7 @@ const Footer = () => {
                   href="#"
                   className="hover:dark:text-violet-400"
                 >
-                  Link
+                  Working Scholars®
                 </a>
               </li>
               <li>
@@ -110,7 +110,7 @@ const Footer = () => {
                   href="#"
                   className="hover:dark:text-violet-400"
                 >
-                  Link
+                  Solutions Online tutoring
                 </a>
               </li>
             </ul>
