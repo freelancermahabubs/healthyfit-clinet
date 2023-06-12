@@ -3,23 +3,18 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const MyClasses = () => {
-  const [classes, setClasses] = useState([]);
+  const [myClasses, setMyClasses] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/my-class`);
-      const result = await response.json();
-      setClasses(result);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    fetch(`${import.meta.env.VITE_API_URL}/my-class?email=${user?.email}`)
+      .then((response) => response.json())
+      .then((data) => setMyClasses(data))
+      .catch((error) => console.error("Error fetching classes:", error));
+  }, [user]);
   return (
     <div>
       <Helmet>
@@ -40,7 +35,7 @@ const MyClasses = () => {
           </tr>
         </thead>
         <tbody>
-          {classes.map((cls, i) => (
+          {myClasses.map((cls, i) => (
             <tr key={cls._id} className="text-end">
               <td>{i + 1}</td>
               <td>

@@ -27,7 +27,8 @@ const Home = () => {
       <PopularInstructors />
       <div className="mt-8 text-center">
         <h2 className="lg:text-4xl font-semibold mb-8 text-transparent text-2xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-          Ours Featured Class
+          -------------------------- Ours Featured Class
+          --------------------------
         </h2>
         <motion.div
           variants={fadeIn("up", 0.3)}
