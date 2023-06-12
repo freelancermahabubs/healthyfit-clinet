@@ -4,6 +4,7 @@ import "./CheckoutForm.css";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+
 const CheckoutForm = ({ classPaid, price }) => {
   // console.log(cart);
   const { user } = useAuth();
@@ -75,6 +76,8 @@ const CheckoutForm = ({ classPaid, price }) => {
       studentId: classPaid?._id,
       classId: classPaid?.selectedClass?._id,
       availableSeats: classPaid?.selectedClass?.availableSeats,
+      className: classPaid?.selectedClass?.className,
+      classImage: classPaid?.selectedClass?.classImage,
       totalEnrolledStudents: classPaid?.selectedClass?.totalEnrolledStudents,
       instructorEmail: classPaid?.selectedClass?.instructor?.email,
       instructorName: classPaid?.selectedClass?.instructor?.name,

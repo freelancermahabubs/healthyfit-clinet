@@ -6,12 +6,12 @@ import AnimationLottie from "../../assets/login.json";
 import { Helmet } from "react-helmet-async";
 import { FcGoogle } from "react-icons/fc";
 
-import useAuth from "../../hooks/useAuth";
 import { BsEyeSlashFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { saveUser } from "../../api/auth";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import "./SingUp.css";
+import useAuth from "../../hooks/useAuth";
 const SignUp = () => {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate("");
@@ -25,15 +25,8 @@ const SignUp = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const {
-    createUser,
-    setLoading,
-    signInWithGoogle,
-    updateUserProfile,
-
-    user,
-  } = useAuth();
-  // const navigate = useNavigate();
+  const { createUser, setLoading, signInWithGoogle, updateUserProfile, user } =
+    useAuth();
 
   const onSubmit = (data) => {
     createUser(data?.email, data?.password).then((result) => {
@@ -42,8 +35,8 @@ const SignUp = () => {
       updateUserProfile(data?.name, data?.photoURL)
         .then(() => {
           const saveUser = { name: data?.name, email: data?.email };
-          fetch(`${import.meta.env.VITE_API_URL}/users/${user?.email}`, {
-            method: "PUT",
+          fetch(`${import.meta.env.VITE_API_URL}/users`, {
+            method: "POST",
             headers: {
               "content-type": "application/json",
             },

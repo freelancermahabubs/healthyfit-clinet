@@ -9,7 +9,6 @@ import AdminDashBoard from "../Layout/AdminDashBoard";
 import ManageUsers from "../Page/Dashboard/ManageUsers";
 import AddAClass from "../Page/Dashboard/AddAClass";
 import MyClasses from "../Page/Dashboard/MyClasses";
-import MyEnrolledClasses from "../Page/Dashboard/MyEnrolledClasses";
 import AdminRoutes from "./AdminRoutes";
 import ManageClasses from "../Page/Dashboard/ManageClasses";
 import InstructorDashBoard from "../Layout/InstructorDashBoard";
@@ -20,6 +19,7 @@ import InstructorRoute from "./InstructorRoute";
 import UpdateClass from "../Page/Dashboard/UpdateClass";
 import MySelectedClassesPage from "../Page/Dashboard/MySelectedClassesPage";
 import Payment from "../Page/Dashboard/Payment";
+import MyEnrolledClasses from "../Page/Dashboard/MyEnrolledClasses";
 export const router = createBrowserRouter([
   {
     path: "/",

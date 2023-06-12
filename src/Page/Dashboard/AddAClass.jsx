@@ -25,7 +25,7 @@ const AddAClass = () => {
     const classPrice = form.price.value;
     const classImage = form.image.files[0];
     // upload Imag
-    console.log(classPrice);
+
     setUploadButtonText("Uploading...");
     imageUpload(classImage)
       .then((data) => {

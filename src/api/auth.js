@@ -4,8 +4,8 @@ export const saveUser = (user) => {
     email: user?.email,
     name: user?.displayName,
   };
-  fetch(`${import.meta.env.VITE_API_URL}/users/${user?.email}`, {
-    method: "PUT",
+  fetch(`${import.meta.env.VITE_API_URL}/users`, {
+    method: "POST",
     headers: {
       "content-type": "application/json",
     },
@@ -17,7 +17,12 @@ export const saveUser = (user) => {
 
 export const getRole = async (email) => {
   const res = await fetch(
-    `${import.meta.env.VITE_API_URL}/users/admin/${email}`
+    `${import.meta.env.VITE_API_URL}/users/admin/${email}`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+      },
+    }
   );
   const user = await res.json();
   return user?.role;

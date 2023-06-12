@@ -1,14 +1,47 @@
-const MyEnrolledClasses = ({ enrolledClasses }) => {
+import useEnrollmentClass from "../../hooks/useEnrollmentClass";
+
+const MyEnrolledClasses = () => {
+  const [enrooledClass] = useEnrollmentClass();
+  console.log(enrooledClass);
+  // const { id } = classPaid._id;
+
   return (
     <div>
-      <h2>My Enrolled Classes</h2>
-      {/* {enrolledClasses.map((class) => (
-        <div key={class.id} className="border p-4 mb-4">
-          <h3>{class.name}</h3>
-          <p>{class.description}</p>
-          <p>Price: {class.price}</p>
-        </div>
-      ))} */}
+      <h2 className="text-2xl font-bold mb-4 text-center">Enrolled Classes</h2>
+      {enrooledClass.length === 0 ? (
+        <p>No enrolled classes</p>
+      ) : (
+        <table className="table shadow-2xl w-[1000px] mx-auto">
+          <thead>
+            <tr>
+              <th className="px-4 py-2">Class Photo</th>
+              <th className="px-4 py-2">Instructor Image</th>
+              <th className="px-4 py-2">Class Name</th>
+              <th className="px-4 py-2">Instructor</th>
+              <th className="px-4 py-2">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {enrooledClass.map((classItem) => (
+              <tr key={classItem?._id}>
+                <td className="px-4 py-2">
+                  <img className="w-16" src={classItem?.classImage} alt="" />
+                </td>
+                <td className="px-4 py-2">
+                  <img
+                    className="w-16"
+                    src={classItem?.instructorImage}
+                    alt=""
+                  />
+                </td>
+                <td className="px-4 py-2">{classItem?.className}</td>
+                <td className="px-4 py-2">{classItem?.instructorName}</td>
+                <td className="px-4 py-2">$ {classItem?.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
