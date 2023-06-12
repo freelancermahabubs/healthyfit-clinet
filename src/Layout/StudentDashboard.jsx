@@ -14,7 +14,7 @@ const StudentDashboard = () => {
   return (
     <>
       <Helmet>
-        <title>HealthyFit | Admin Deshboard</title>
+        <title>HealthyFit | Studnet Deshboard</title>
       </Helmet>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />

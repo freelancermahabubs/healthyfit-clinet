@@ -10,7 +10,7 @@ import { toast } from "react-hot-toast";
 const Class = () => {
   const [classes, setClasses] = useState([]);
   const { user } = useAuth();
-  // console.log(user);
+  console.log(classes);
   const navigate = useNavigate();
   const [isAdmin] = useAdmin();
   const [isInstructor] = useInstructor();
@@ -89,7 +89,7 @@ const Class = () => {
               className="mb-4"
             />
             <h2 className="text-lg font-bold">{classItem.className}</h2>
-            <p className="text-gray-600 mb-2">{classItem.instructorName}</p>
+            <p className="text-gray-600 mb-2">{classItem?.instructor?.name}</p>
             <p className="mb-2">
               Available Seats: {classItem.availableSeats}
               {classItem.availableSeats === 0 ? "(No seats available)" : ""}
