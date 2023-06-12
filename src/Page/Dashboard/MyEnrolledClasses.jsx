@@ -2,8 +2,6 @@ import useEnrollmentClass from "../../hooks/useEnrollmentClass";
 
 const MyEnrolledClasses = () => {
   const [enrooledClass] = useEnrollmentClass();
-  console.log(enrooledClass);
-  // const { id } = classPaid._id;
 
   return (
     <div>
