@@ -14,11 +14,10 @@ const PopularInstructors = () => {
 
   return (
     <div className="px-6">
-      <h2 className="lg:text-3xl text-xl font-bold mb-4 text-center mt-5 uppercase ">
-        -------------------------- Popular Instructors
-        --------------------------
+      <h2 className="lg:text-3xl text-xl bg-gradient-to-r from-cyan-500 to-blue-500 rounded w-1/2 mx-auto font-bold mb-4 text-center text-white mt-5 uppercase ">
+        Popular Instructors
       </h2>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid px-6 lg:grid-cols-3 gap-4">
         {popularInstructors.map((instructor) => (
           <div key={instructor._id} className="bg-white rounded-lg p-4 shadow">
             <img

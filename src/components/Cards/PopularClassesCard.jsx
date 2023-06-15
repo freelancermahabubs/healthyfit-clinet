@@ -9,7 +9,7 @@ const PopularClassesCard = ({ classItem }) => {
       variants={fadeIn("up", 0.3)}
       initial="hidden"
       whileInView={"show"}
-      className=" min-h-full lg:w-full w-[64%] mx-auto rounded overflow-hidden shadow-lg bg-white mt-4"
+      className="min-h-full lg:w-full  w-64 mx-auto rounded overflow-hidden shadow-lg bg-white mt-4"
     >
       <img src={classImage} alt="image" />
       <div className="ml-3 space-y-1">

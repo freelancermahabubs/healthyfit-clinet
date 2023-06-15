@@ -1,6 +1,6 @@
 const FeaturedCard = ({ singleClass }) => {
   return (
-    <div className="max-w-sm min-h-full rounded overflow-hidden shadow-lg bg-white mt-4">
+    <div className="lg:w-full w-72 min-h-full rounded overflow-hidden shadow-lg bg-white mt-4">
       <img src={singleClass.image} alt="image" />
       <h2 className="text-xl font-semibold pt-2">{singleClass.title}</h2>
       <p>{singleClass.dec}</p>

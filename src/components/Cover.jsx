@@ -16,12 +16,12 @@ const Cover = () => {
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
         <SwiperSlide>
           <div>
-            <div className="absolute w-1/2 top-48 left-[30%] space-y-2  ">
+            <div className="absolute w-1/2 top-16 lg:top-48 left-[30%] space-y-2  ">
               <motion.h2
                 variants={fadeIn("up", 0.3)}
                 initial="hidden"
                 whileInView={"show"}
-                className="text-6xl font-bold text-white"
+                className="lg:text-6xl text-xl font-bold text-white"
               >
                 Find Your <span className="text-orange-400">Healthy</span>
               </motion.h2>
@@ -29,7 +29,7 @@ const Cover = () => {
                 variants={fadeIn("up", 0.3)}
                 initial="hidden"
                 whileInView={"show"}
-                className="text-white font-bold text-6xl lg:text-center md:text-center xl:text-center mr-24"
+                className="text-white font-bold  text-2xl lg:text-6xl lg:text-center md:text-center xl:text-center mr-24"
               >
                 Weight
               </motion.h3>
@@ -37,7 +37,7 @@ const Cover = () => {
                 variants={fadeIn("up", 0.3)}
                 initial="hidden"
                 whileInView={"show"}
-                className="lg:text-center md:text-center xl:text-center mr-12 text-white "
+                className="lg:text-center  w-full md:text-center  mr-12 text-white "
               >
                 It is a long established fact that a reader will be distracted
                 by the readable content layout readable English.ratione, id
@@ -49,7 +49,7 @@ const Cover = () => {
                 whileInView={"show"}
                 className="text-center mr-20"
               >
-                <button className="bg-white p-2 rounded text-xl font-semibold text-orange-400 hover:border-r-4 border-orange-400 ">
+                <button className="bg-white p-2 rounded lg:text-xl font-semibold text-orange-400 hover:border-r-4 border-orange-400 ">
                   Get Quote
                 </button>
               </motion.div>

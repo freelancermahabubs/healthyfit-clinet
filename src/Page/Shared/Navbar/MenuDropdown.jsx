@@ -4,8 +4,12 @@ import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 
 import useAuth from "../../../hooks/useAuth";
+import useInstructor from "../../../hooks/useInstructor";
+import useAdmin from "../../../hooks/useAdmin";
 
 const MenuDropdown = () => {
+  const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructor();
   const { user, logOut, setRole } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +43,23 @@ const MenuDropdown = () => {
             </Link>
             {user ? (
               <>
+                <div className="px-2 mt-2 ">
+                  {isAdmin ? (
+                    <>
+                      <Link to="/admin-dashBoard">Admin DashBoard</Link>
+                    </>
+                  ) : isInstructor ? (
+                    <>
+                      <Link to="/instructor-dashBoard">
+                        Instructor DashBoard
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link to="/student-dashboard"> Dashboard</Link>
+                    </>
+                  )}
+                </div>
                 <div
                   onClick={() => {
                     setRole(null);
